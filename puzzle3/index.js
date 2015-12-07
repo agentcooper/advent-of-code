@@ -12,7 +12,10 @@ var actions = {
     '>': coords => ({ x: coords.x + 1, y: coords.y }),
     '^': coords => ({ x: coords.x, y: coords.y + 1 }),
     'v': coords => ({ x: coords.x, y: coords.y - 1 }),
-    '<': coords => ({ x: coords.x - 1, y: coords.y })
+    '<': coords => ({ x: coords.x - 1, y: coords.y }),
+
+    // don't move
+    'x': coords => coords
 };
 
 function getKey(coords) {
@@ -23,17 +26,13 @@ state.houses.set(getKey(state.santaCoords), 1);
 
 var result = input.split('').reduce(function(state, step, index) {
     var santaCoords =
-        index % 2 === 0 ?
-        actions[step](state.santaCoords) : state.santaCoords;
+        actions[index % 2 === 0 ? step : 'x'](state.santaCoords);
 
     var roboSantaCoords =
-        index % 2 === 1 ?
-        actions[step](state.roboSantaCoords) : state.roboSantaCoords;
+        actions[index % 2 === 1 ? step : 'x'](state.roboSantaCoords);
 
-    var coords = index % 2 === 0 ?
-        santaCoords : roboSantaCoords;
-
-    state.houses.set(getKey(coords), 1);
+    state.houses.set(getKey(santaCoords), 1);
+    state.houses.set(getKey(roboSantaCoords), 1);
 
     return {
         houses: state.houses,
