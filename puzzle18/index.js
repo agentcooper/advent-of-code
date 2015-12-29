@@ -1,9 +1,11 @@
+'use strict';
+
 var fs = require('fs');
 
 var input = fs.readFileSync('input.txt').toString().trim();
 
-var ON = '#';
-var OFF = '.';
+const ON = '#';
+const OFF = '.';
 
 function getNeighbors(grid, x, y) {
     var result = [];
@@ -54,7 +56,7 @@ var grid = input.split('\n').map(line => line.split(''));
 
 var finalGrid = grid;
 
-for (var i = 0; i < steps; i++) {
+for (let i = 0; i < steps; i++) {
     finalGrid = updateGrid(finalGrid);
 }
 
